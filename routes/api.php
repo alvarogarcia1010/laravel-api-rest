@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\Auth\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,13 +16,21 @@ use App\Http\Controllers\ArticleController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
+Route::post('register', [AuthController::class, 'register'])->name('register');
+
+Route::middleware('auth:api')->group(function() {
+
+    Route::get('logout',  [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('myuser',  [AuthController::class, 'getLoggedUser'])->name('user');
+
+    Route::apiResource('articles', ArticleController::class);
+
+    Route::apiResource('users', ArticleController::class);
 });
 
-Route::apiResources([
-    'articles' => ArticleController::class,
-    'users' => ArticleController::class,
-]);
+
 
 
