@@ -10,6 +10,7 @@
 namespace App\Services\AuthenticationManager;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Password;
 use App\Repositories\User\UserInterface;
 use Carbon\Carbon;
 
@@ -92,7 +93,7 @@ class AuthenticationManager implements AuthenticationManagementInterface {
             'email' => $request->email,
             'username' => $request->username,
             'password' => bcrypt($request->password),
-            'birth_date' => !empty($request->birt_date)? $this->Carbon->createFromFormat('d/m/Y', $request->birt_date)->format('Y-m-d') : null,
+            'birth_date' => !empty($request->birth_date)? $this->Carbon->createFromFormat('d/m/Y', $request->birth_date)->format('Y-m-d') : null,
             'phone_number' => $request->phone_number
         ];
 
@@ -150,6 +151,89 @@ class AuthenticationManager implements AuthenticationManagementInterface {
             'jsonapi' => [
                 'version' => "1.00"
             ]
-        ], 201);
+        ], 200);
+    }
+
+    public function sendPasswordResetEmail($request)
+    {
+        $user = $this->User->byEmail($request['email']);
+
+        if ($user->isEmpty())
+        {
+            return response()->json([
+                'errors' => [
+                    'status' => '400',
+                    'title' => __('passwords.failure'),
+                    'detail' => __('passwords.user')
+                ],
+                'jsonapi' => [
+                    'version' => "1.00"
+                ]
+            ], 400);
+        }
+
+        $credentials = ['email' => $request->email];
+
+        Password::sendResetLink($credentials);
+
+        return response()->json([
+            'data' => [
+                'type' => 'passwordReset',
+                'message' => __('passwords.sent'),
+            ],
+            'jsonapi' => [
+                'version' => "1.00"
+            ]
+        ], 200);
+    }
+
+    public function resetPassword($request)
+    {
+        $user = $this->User->byEmail($request['email']);
+
+        if ($user->isEmpty())
+        {
+            return response()->json([
+                'errors' => [
+                    'status' => '400',
+                    'title' => __('passwords.failure'),
+                    'detail' => __('passwords.user')
+                ],
+                'jsonapi' => [
+                    'version' => "1.00"
+                ]
+            ], 400);
+        }
+
+        $credentials = request(['email', 'password', 'token']);
+
+        $reset_password_status = Password::reset($credentials, function ($user, $password)
+        {
+            $this->User->update(['password' => bcrypt($password)], $user);
+        });
+
+        if ($reset_password_status == Password::INVALID_TOKEN)
+        {
+            return response()->json([
+                'errors' => [
+                    'status' => '400',
+                    'title' => __('passwords.failure'),
+                    'detail' => __('passwords.token')
+                ],
+                'jsonapi' => [
+                    'version' => "1.00"
+                ]
+            ], 400);
+        }
+
+        return response()->json([
+            'data' => [
+                'type' => 'passwordReset',
+                'message' => __('passwords.reset'),
+            ],
+            'jsonapi' => [
+                'version' => "1.00"
+            ]
+        ], 200);
     }
 }

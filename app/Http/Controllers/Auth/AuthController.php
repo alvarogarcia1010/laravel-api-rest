@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\ResetEmailRequest;
+use App\Http\Requests\ResetPasswordRequest;
 use App\Services\AuthenticationManager\AuthenticationManagementInterface;
 use App\Models\User;
 use Carbon\Carbon;
@@ -56,5 +58,15 @@ class AuthController extends Controller
     public function getLoggedUser(Request $request)
     {
         return $this->AuthenticationManagerService->getApiLoggedUser($request);
+    }
+
+    public function sendPasswordResetEmail(ResetEmailRequest $request)
+    {
+        return $this->AuthenticationManagerService->sendPasswordResetEmail($request);
+    }
+
+    public function resetPassword(ResetPasswordRequest $request)
+    {
+        return $this->AuthenticationManagerService->resetPassword($request);
     }
 }

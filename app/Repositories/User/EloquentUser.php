@@ -53,6 +53,18 @@ class EloquentUser implements UserInterface {
     }
 
     /**
+    * Retrieve User by email
+    *
+    * @param  string email
+    *
+    * @return Illuminate\Database\Eloquent\Collection
+    */
+    public function byEmail($email, $databaseConnectionName = null)
+    {
+        return $this->User->where('email', '=', $email)->get();
+    }
+
+    /**
      * Create a new User
     *
     * @param array $data
@@ -85,12 +97,7 @@ class EloquentUser implements UserInterface {
             $user = $this->byId($data['id']);
         }
 
-        foreach ($data as $key => $value)
-        {
-            $user->$key = $value;
-        }
-
-        return $user->save();
+        return $user->update($data);
     }
 
     /**
