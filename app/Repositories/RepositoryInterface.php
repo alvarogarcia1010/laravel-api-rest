@@ -19,7 +19,7 @@ interface RepositoryInterface {
     *
     * @return Illuminate\Database\Eloquent\Collection
     */
-    public function paginate();
+    public function searchTableRowsWithPagination();
 
     /**
 	* Get an user by id

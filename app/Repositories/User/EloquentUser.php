@@ -35,7 +35,7 @@ class EloquentUser implements UserInterface {
     *
     * @return Illuminate\Database\Eloquent\Collection
     */
-    public function paginate()
+    public function searchTableRowsWithPagination()
     {
 
     }

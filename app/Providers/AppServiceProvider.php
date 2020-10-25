@@ -25,7 +25,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerUserInterface();
+        $this->registerArticleInterface();
         $this->registerAuthenticationManagementInterface();
+        $this->registerArticleManagementInterface();
     }
 
     /**
@@ -42,6 +44,20 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
+	* Register a article interface instance.
+	*
+	* @return void
+	*/
+	protected function registerArticleInterface()
+	{
+		$this->app->bind('App\Repositories\Article\ArticleInterface', function($app)
+		{
+			return new \App\Repositories\Article\EloquentArticle(new \App\Models\Article());
+		});
+    }
+
+
+    /**
 	* Register a user interface instance.
 	*
 	* @return void
@@ -52,6 +68,22 @@ class AppServiceProvider extends ServiceProvider
 		{
 			return new \App\Services\AuthenticationManager\AuthenticationManager(
                 $app->make('App\Repositories\User\UserInterface'),
+                new Carbon()
+            );
+		});
+    }
+
+    /**
+	* Register a article interface instance.
+	*
+	* @return void
+	*/
+	protected function registerArticleManagementInterface()
+	{
+		$this->app->bind('App\Services\ArticleManager\ArticleManagementInterface', function($app)
+		{
+			return new \App\Services\ArticleManager\ArticleManager(
+                $app->make('App\Repositories\Article\ArticleInterface'),
                 new Carbon()
             );
 		});

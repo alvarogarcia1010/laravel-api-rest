@@ -3,22 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Requests\ArticleRequest;
 use Illuminate\Http\Request;
+use App\Services\ArticleManager\ArticleManagementInterface;
 
-class ArticleController extends Controller
-{
+
+class ArticleController extends Controller {
 
     /**
-    * Journal Management Interface (Security)
-    *
-    * @var App\Kwaai\Security\Services\JournalManagement\JournalManagementInterface
-    *
-    */
-    protected $jsonType;
+	 * Article Manager Service
+	 *
+	 * @var App\Services\AuthenticationManager\AuthenticationManagementInterface;
+	 *
+	 */
+    protected $ArticleManagerService;
 
-    public function __construct()
-    {
-        $this->jsonType = 'articles';
+    public function __construct(
+		ArticleManagementInterface $ArticleManagerService
+	)
+	{
+		$this->ArticleManagerService = $ArticleManagerService;
     }
 
     /**
@@ -28,7 +32,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return response()->json(Article::paginate(), 200);
+        return $this->ArticleManagerService->getTableRowsWithPagination(request()->all());
     }
 
     /**
@@ -37,15 +41,9 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticleRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'quantity' => 'required',
-            'price' => 'required'
-        ]);
-
-        return Article::create($request->all());
+        return $this->ArticleManagerService->create($request);
     }
 
     /**
@@ -56,17 +54,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        return response()
-            ->json([
-                'data' => [
-                    'type' => $this->jsonType,
-                    'id' => strval($article->id),
-                    'attribute' => $article
-                ],
-                'jsonapi' => [
-                    'version' => "1.00"
-                ]
-            ], 200);
+        return $this->ArticleManagerService->getArticle($article);
     }
 
     /**
@@ -76,10 +64,9 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Article $data)
+    public function update(ArticleRequest $request, Article $data)
     {
-        $article->update($request->all());
-        return $article;
+        return $this->ArticleManagerService->update($request, $article);
     }
 
     /**
@@ -88,8 +75,8 @@ class ArticleController extends Controller
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Article $article)
+    public function destroy($request)
     {
-        return $article->delete();
+        return $this->ArticleManagerService->delete($request);
     }
 }

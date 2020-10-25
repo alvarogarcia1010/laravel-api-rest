@@ -23,21 +23,11 @@ class AuthController extends Controller
 	 */
 	protected $AuthenticationManagerService;
 
-	/**
-	 * Input
-	 *
-	 * @var Illuminate\Http\Request
-	 *
-	 */
-	protected $Input;
-
     public function __construct(
 		AuthenticationManagementInterface $AuthenticationManagerService,
-		Request $Input
 	)
 	{
 		$this->AuthenticationManagerService = $AuthenticationManagerService;
-		$this->Input = $Input;
     }
 
     public function login(LoginRequest $request)
