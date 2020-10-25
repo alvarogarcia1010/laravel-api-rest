@@ -24,7 +24,7 @@ class AuthController extends Controller
 	protected $AuthenticationManagerService;
 
     public function __construct(
-		AuthenticationManagementInterface $AuthenticationManagerService,
+		AuthenticationManagementInterface $AuthenticationManagerService
 	)
 	{
 		$this->AuthenticationManagerService = $AuthenticationManagerService;
