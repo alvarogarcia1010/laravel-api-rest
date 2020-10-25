@@ -27,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
         $this->registerUserInterface();
         $this->registerArticleInterface();
         $this->registerAuthenticationManagementInterface();
+        $this->registerUserManagementInterface();
         $this->registerArticleManagementInterface();
     }
 
@@ -72,6 +73,22 @@ class AppServiceProvider extends ServiceProvider
             );
 		});
     }
+
+    /**
+	* Register a article interface instance.
+	*
+	* @return void
+	*/
+	protected function registerUserManagementInterface()
+	{
+		$this->app->bind('App\Services\UserManager\UserManagementInterface', function($app)
+		{
+			return new \App\Services\UserManager\UserManager(
+                $app->make('App\Repositories\User\UserInterface'),
+                new Carbon()
+            );
+		});
+	}
 
     /**
 	* Register a article interface instance.

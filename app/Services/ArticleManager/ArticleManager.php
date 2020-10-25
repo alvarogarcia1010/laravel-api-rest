@@ -9,8 +9,6 @@
 
 namespace App\Services\ArticleManager;
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Password;
 use App\Repositories\Article\ArticleInterface;
 use Carbon\Carbon;
 
@@ -107,11 +105,11 @@ class ArticleManager implements ArticleManagementInterface {
             ],
             'data' => $rows,
             'links' => [
-                "self" =>  url("/articles?page[number]=$page&page[size]=$limit"),
-                "first" => url("/articles?page[number]=1&page[size]=$limit"),
-                "prev" => url("/articles?page[number]=$prevPage&page[size]=$limit"),
-                "next" => url("/articles?page[number]=$$nextPage&page[size]=$limit"),
-                "last" => url("/articles?page[number]=$totalPages&page[size]=$limit")
+                "self" =>  url("/api/$this->responseType?page[number]=$page&page[size]=$limit"),
+                "first" => url("/api/$this->responseType?page[number]=1&page[size]=$limit"),
+                "prev" => url("/api/$this->responseType?page[number]=$prevPage&page[size]=$limit"),
+                "next" => url("/api/$this->responseType?page[number]=$$nextPage&page[size]=$limit"),
+                "last" => url("/api/$this->responseType?page[number]=$totalPages&page[size]=$limit")
             ],
             'jsonapi' => [
                 'version' => "1.00"
@@ -121,10 +119,13 @@ class ArticleManager implements ArticleManagementInterface {
 
     public function getArticle($article)
     {
+        $id = strval($article->id);
+        unset($article->id);
+
         return response()->json([
             'data' => [
                 'type' => $this->responseType,
-                'id' => strval($article->id),
+                'id' => $id,
                 'attribute' => $article
             ],
             'jsonapi' => [
@@ -136,11 +137,13 @@ class ArticleManager implements ArticleManagementInterface {
     public function create($request)
     {
         $article = $this->article->create($request->all());
+        $id = strval($article->id);
+        unset($article->id);
 
         return response()->json([
             'data' => [
                 'type' => $this->responseType,
-                'id' => strval($article->id),
+                'id' => $id,
                 'attribute' => $article
             ],
             'jsonapi' => [
@@ -152,11 +155,13 @@ class ArticleManager implements ArticleManagementInterface {
     public function update($request, $article)
     {
         $article = $this->Article->update($request->all(), $article);
+        $id = strval($article->id);
+        unset($article->id);
 
         return response()->json([
             'data' => [
                 'type' => $this->responseType,
-                'id' => strval($article->id),
+                'id' => $id,
                 'attribute' => $article
             ],
             'jsonapi' => [

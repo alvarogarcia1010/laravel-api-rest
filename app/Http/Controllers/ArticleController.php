@@ -13,7 +13,7 @@ class ArticleController extends Controller {
     /**
 	 * Article Manager Service
 	 *
-	 * @var App\Services\AuthenticationManager\AuthenticationManagementInterface;
+	 * @var App\Services\ArticleManager\ArticleManagementInterface;
 	 *
 	 */
     protected $ArticleManagerService;

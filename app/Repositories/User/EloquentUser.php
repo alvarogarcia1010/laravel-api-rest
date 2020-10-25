@@ -11,6 +11,7 @@
 namespace App\Repositories\User;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\User;
 
 class EloquentUser implements UserInterface {
@@ -29,15 +30,50 @@ class EloquentUser implements UserInterface {
 	}
 
     /**
-    * Retrieve list of user
+    * Retrieve list of users
     *
     * @param  int $id Organization id
     *
     * @return Illuminate\Database\Eloquent\Collection
     */
-    public function searchTableRowsWithPagination()
+    public function searchTableRowsWithPagination($count = false, $limit = null, $offset = null, $filter = null, $sortColumn = null, $sortOrder = null)
     {
+        $query = $this->User->select('id', 'name', 'username', 'email', 'phone_number', 'birth_date', 'created_at', 'updated_at');
 
+        if(!empty($filter))
+        {
+          $query->where(function($dbQuery) use ($filter)
+          {
+            foreach (['name', 'username', 'email'] as $key => $value)
+            {
+                $dbQuery->orWhere($value, 'like', '%' . str_replace(' ', '%', $filter) . '%');
+                //$dbQuery->orwhereRaw('lower(`' . $value . '`) LIKE ? ',['%' . strtolower(str_replace(' ', '%', $filter)) . '%']);
+            }
+          });
+        }
+
+        if(!empty($sortColumn) && !empty($sortOrder))
+        {
+          $query->orderBy($sortColumn, $sortOrder);
+        }
+
+        if($count)
+        {
+            return $query->count();
+        }
+
+        if(!empty($limit))
+        {
+            $query->take($limit);
+        }
+
+        if(!empty($offset) && $offset != 0)
+        {
+            $query->skip($offset);
+        }
+        return new Collection(
+            $query->get()
+        );
     }
 
     /**
