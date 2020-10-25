@@ -45,7 +45,7 @@ class AuthenticationManager implements AuthenticationManagementInterface {
     {
         $credentials = request(['email', 'password']);
 
-        if(! Auth::attempt($credentials))
+        if(!Auth::attempt($credentials))
         {
             return response()->json([
                 'errors' => [
