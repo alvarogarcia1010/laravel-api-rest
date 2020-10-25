@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Requests\ArticleRequest;
+use App\Http\Requests\ArticleRequest;
 use Illuminate\Http\Request;
 use App\Services\ArticleManager\ArticleManagementInterface;
-
 
 class ArticleController extends Controller {
 
