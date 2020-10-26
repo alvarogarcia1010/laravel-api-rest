@@ -104,7 +104,7 @@ class AuthenticationManager implements AuthenticationManagementInterface {
         $user = $this->User->create($data);
         $tokenResult = $user->createToken('Personal Access Token');
         $token = $tokenResult->token;
-
+        $token->expires_at = $this->Carbon->now()->addMinutes(120);
         $token->save();
 
         return response()->json([
