@@ -136,7 +136,7 @@ class ArticleManager implements ArticleManagementInterface {
 
     public function create($request)
     {
-        $article = $this->article->create($request->all());
+        $article = $this->Article->create($request->all());
         $id = strval($article->id);
         unset($article->id);
 
@@ -152,10 +152,26 @@ class ArticleManager implements ArticleManagementInterface {
         ], 201);
     }
 
-    public function update($request, $article)
+    public function update($request, $id)
     {
-        $article = $this->Article->update($request->all(), $article);
-        $id = strval($article->id);
+        $article = $this->Article->byId($id);
+
+        if(empty($article))
+        {
+            return response()->json([
+                'errors' => [
+                    'status' => '401',
+                    'title' => __('base.failure'),
+                    'detail' => __('base.articleNotFound')
+                ],
+                'jsonapi' => [
+                    'version' => "1.00"
+                ]
+            ], 404);
+        }
+
+        $this->Article->update($request->all(), $article);
+        $article = $this->Article->byId($id);
         unset($article->id);
 
         return response()->json([
@@ -170,9 +186,25 @@ class ArticleManager implements ArticleManagementInterface {
         ], 200);
     }
 
-    public function delete($request)
+    public function delete($id)
     {
-        $this->Article->delete($request);
+        $article = $this->Article->byId($id);
+
+        if(empty($article))
+        {
+            return response()->json([
+                'errors' => [
+                    'status' => '401',
+                    'title' => __('base.failure'),
+                    'detail' => __('base.articleNotFound')
+                ],
+                'jsonapi' => [
+                    'version' => "1.00"
+                ]
+            ], 404);
+        }
+
+        $this->Article->delete($id);
 
         return response()->json([
             'data' => [

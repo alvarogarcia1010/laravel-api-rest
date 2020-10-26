@@ -132,8 +132,8 @@ class EloquentArticle implements ArticleInterface {
     *
     * @return boolean
     */
-    public function delete(array $ids)
+    public function delete($id)
     {
-        return $this->Article->destroy($ids);
+        return $this->Article->destroy($id);
     }
 }

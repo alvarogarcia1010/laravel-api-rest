@@ -134,10 +134,100 @@ class UserManager implements UserManagementInterface {
         ], 200);
     }
 
-    public function update($request, $user)
+    public function create($request)
     {
-        $user = $this->User->update($request->all(), $user);
+        $data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'birth_date' => !empty($request->birth_date)? $this->Carbon->createFromFormat('d/m/Y', $request->birth_date)->format('Y-m-d') : null,
+            'phone_number' => $request->phone_number
+        ];
+
+        $user = $this->User->create($data);
         $id = strval($user->id);
+        unset($user->id);
+
+        return response()->json([
+            'data' => [
+                'type' => $this->responseType,
+                'id' => $id,
+                'attribute' => $user
+            ],
+            'jsonapi' => [
+                'version' => "1.00"
+            ]
+        ], 201);
+    }
+
+    public function update($request, $id)
+    {
+        $unchangeValues = $this->User->byId($id);
+
+        if(empty($unchangeValues))
+        {
+            return response()->json([
+                'errors' => [
+                    'status' => '401',
+                    'title' => __('base.failure'),
+                    'detail' => __('base.userNotFound')
+                ],
+                'jsonapi' => [
+                    'version' => "1.00"
+                ]
+            ], 404);
+        }
+
+        if(!empty($request['password']))
+        {
+            $request['password'] = bcrypt($request['password']);
+        }
+
+        if(!empty($request['username']) && $request['username'] != $unchangeValues->username)
+        {
+            if(!$this->User->byUsername($request['username'])->isEmpty())
+            {
+                return response()->json([
+                    'errors' => [
+                        'status' => '401',
+                        'title' => __('base.failure'),
+                        'detail' => __('base.usernameAlreadyExist')
+                    ],
+                    'jsonapi' => [
+                        'version' => "1.00"
+                    ]
+                ], 404);
+            }
+        }
+        else
+        {
+            unset($request['username']);
+        }
+
+        if(!empty($request['email']) && $request['email'] != $unchangeValues->email)
+        {
+            if(!$this->User->byEmail($request['email'])->isEmpty())
+            {
+                return response()->json([
+                    'errors' => [
+                        'status' => '401',
+                        'title' => __('base.failure'),
+                        'detail' => __('base.emailAlreadyExist')
+                    ],
+                    'jsonapi' => [
+                        'version' => "1.00"
+                    ]
+                ], 404);
+            }
+        }
+        else {
+            unset($request['email']);
+        }
+
+
+        $this->User->update($request->all(), $unchangeValues);
+        $user = $this->User->byId($id);
         unset($user->id);
 
         return response()->json([
@@ -152,9 +242,25 @@ class UserManager implements UserManagementInterface {
         ], 200);
     }
 
-    public function delete($request)
+    public function delete($id)
     {
-        $this->User->delete($request);
+        $user = $this->User->byId($id);
+
+        if(empty($user))
+        {
+            return response()->json([
+                'errors' => [
+                    'status' => '401',
+                    'title' => __('base.failure'),
+                    'detail' => __('base.userNotFound')
+                ],
+                'jsonapi' => [
+                    'version' => "1.00"
+                ]
+            ], 404);
+        }
+
+        $this->User->delete($id);
 
         return response()->json([
             'data' => [

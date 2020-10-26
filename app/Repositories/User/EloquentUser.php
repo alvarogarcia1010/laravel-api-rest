@@ -101,6 +101,18 @@ class EloquentUser implements UserInterface {
     }
 
     /**
+    * Retrieve User by username
+    *
+    * @param  string email
+    *
+    * @return Illuminate\Database\Eloquent\Collection
+    */
+    public function byUsername($username, $databaseConnectionName = null)
+    {
+        return $this->User->where('username', '=', $username)->get();
+    }
+
+    /**
      * Create a new User
     *
     * @param array $data
@@ -144,8 +156,8 @@ class EloquentUser implements UserInterface {
     *
     * @return boolean
     */
-    public function delete(array $ids)
+    public function delete($id)
     {
-        return $this->User->destroy($ids);
+        return $this->User->destroy($id);
     }
 }

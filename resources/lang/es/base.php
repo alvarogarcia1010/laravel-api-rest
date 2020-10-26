@@ -13,6 +13,11 @@ return [
     |
     */
 
+    'failure' => 'Oops! Parece que hubo un error.',
     'delete' => 'Registro eliminado con exito.',
+    'articleNotFound' => 'Producto no encontrado.',
+    'userNotFound' => 'Usuario no encontrado.',
+    'usernameAlreadyExist' => 'Ya existe un usuario con el mismo nombre.',
+    'emailAlreadyExist' => 'Ya existe un email con el mismo valor..',
 
 ];

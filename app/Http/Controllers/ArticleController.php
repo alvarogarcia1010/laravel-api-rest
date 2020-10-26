@@ -63,9 +63,9 @@ class ArticleController extends Controller {
      * @param  \App\Models\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleRequest $request, Article $data)
+    public function update(ArticleRequest $request, $data)
     {
-        return $this->ArticleManagerService->update($request, $article);
+        return $this->ArticleManagerService->update($request, $data);
     }
 
     /**

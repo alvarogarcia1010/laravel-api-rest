@@ -33,7 +33,7 @@ Route::middleware('auth:api')->group(function() {
 
     Route::apiResource('articles', ArticleController::class);
 
-    Route::apiResource('users', UserController::class)->except(['store']);
+    Route::apiResource('users', UserController::class);
 });
 
 

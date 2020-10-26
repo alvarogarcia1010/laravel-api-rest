@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\RegisterRequest;
 use App\Services\UserManager\UserManagementInterface;
 
 class UserController extends Controller
@@ -40,9 +41,9 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RegisterRequest $request)
     {
-        //
+        return $this->UserManagerService->create($request);
     }
 
     /**
@@ -63,9 +64,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, $id)
     {
-        return $this->UserManagerService->update($request, $user);
+        return $this->UserManagerService->update($request, $id);
     }
 
     /**

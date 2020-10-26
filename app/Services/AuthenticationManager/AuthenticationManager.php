@@ -67,6 +67,10 @@ class AuthenticationManager implements AuthenticationManagementInterface {
         {
             $token->expires_at = $this->Carbon->now()->addWeeks(1);
         }
+        else
+        {
+            $token->expires_at = $this->Carbon->now()->addMinutes(120);
+        }
 
         $token->save();
 
