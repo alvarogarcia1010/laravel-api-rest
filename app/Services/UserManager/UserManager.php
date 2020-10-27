@@ -90,7 +90,7 @@ class UserManager implements UserManagementInterface {
             array_push($rows, [
                 'type' => $this->responseType,
                 'id' => $id,
-                'attribute' => $user
+                'attributes' => $user
             ]);
         });
 
@@ -126,7 +126,7 @@ class UserManager implements UserManagementInterface {
             'data' => [
                 'type' => $this->responseType,
                 'id' => $id,
-                'attribute' => $user
+                'attributes' => $user
             ],
             'jsonapi' => [
                 'version' => "1.00"
@@ -153,7 +153,7 @@ class UserManager implements UserManagementInterface {
             'data' => [
                 'type' => $this->responseType,
                 'id' => $id,
-                'attribute' => $user
+                'attributes' => $user
             ],
             'jsonapi' => [
                 'version' => "1.00"
@@ -234,7 +234,7 @@ class UserManager implements UserManagementInterface {
             'data' => [
                 'type' => $this->responseType,
                 'id' => $id,
-                'attribute' => $user
+                'attributes' => $user
             ],
             'jsonapi' => [
                 'version' => "1.00"

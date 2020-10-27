@@ -79,7 +79,7 @@ class AuthenticationManager implements AuthenticationManagementInterface {
                 'type' => 'auth',
                 'id' => strval($user->id),
                 'message' => __('auth.success'),
-                'attribute' => $user,
+                'attributes' => $user,
                 'token' => $tokenResult->accessToken,
                 'token_type' => 'Bearer',
                 'expires_at' => $this->Carbon->parse($tokenResult->token->expires_at)->toDateTimeString()
@@ -112,7 +112,7 @@ class AuthenticationManager implements AuthenticationManagementInterface {
                 'type' => 'user',
                 'id' => strval($user->id),
                 'message' => __('auth.success'),
-                'attribute' => $user,
+                'attributes' => $user,
                 'token' => $tokenResult->accessToken,
                 'token_type' => 'Bearer',
                 'expires_at' => $this->Carbon->parse($tokenResult->token->expires_at)->toDateTimeString()
@@ -131,7 +131,7 @@ class AuthenticationManager implements AuthenticationManagementInterface {
                 'data' => [
                     'type' => 'user',
                     'id' => strval($request->user()->id),
-                    'attribute' => $request->user(),
+                    'attributes' => $request->user(),
                 ],
                 'jsonapi' => [
                     'version' => "1.00"

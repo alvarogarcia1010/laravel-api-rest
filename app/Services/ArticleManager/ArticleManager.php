@@ -90,7 +90,7 @@ class ArticleManager implements ArticleManagementInterface {
             array_push($rows, [
                 'type' => $this->responseType,
                 'id' => $id,
-                'attribute' => $article
+                'attributes' => $article
             ]);
         });
 
@@ -126,7 +126,7 @@ class ArticleManager implements ArticleManagementInterface {
             'data' => [
                 'type' => $this->responseType,
                 'id' => $id,
-                'attribute' => $article
+                'attributes' => $article
             ],
             'jsonapi' => [
                 'version' => "1.00"
@@ -144,7 +144,7 @@ class ArticleManager implements ArticleManagementInterface {
             'data' => [
                 'type' => $this->responseType,
                 'id' => $id,
-                'attribute' => $article
+                'attributes' => $article
             ],
             'jsonapi' => [
                 'version' => "1.00"
@@ -178,7 +178,7 @@ class ArticleManager implements ArticleManagementInterface {
             'data' => [
                 'type' => $this->responseType,
                 'id' => $id,
-                'attribute' => $article
+                'attributes' => $article
             ],
             'jsonapi' => [
                 'version' => "1.00"
