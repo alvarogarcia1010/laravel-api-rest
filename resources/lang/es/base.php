@@ -19,5 +19,7 @@ return [
     'userNotFound' => 'Usuario no encontrado.',
     'usernameAlreadyExist' => 'Ya existe un usuario con el mismo nombre.',
     'emailAlreadyExist' => 'Ya existe un email con el mismo valor..',
+    'decimalSeparator' => '.',
+    'thousandsSeparator' => ','
 
 ];

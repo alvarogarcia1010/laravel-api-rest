@@ -72,7 +72,7 @@ class ArticleManager implements ArticleManagementInterface {
         else
         {
             $sortColumn = 'id';
-            $sortOrder = 'asc';
+            $sortOrder = 'desc';
         }
 
         if($pager)
@@ -84,6 +84,7 @@ class ArticleManager implements ArticleManagementInterface {
 
         $this->Article->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($article) use (&$rows)
         {
+            $article->price_label = '$ ' . number_format($article->price , 2, __('base.decimalSeparator'), __('base.thousandsSeparator'));
             $id = strval($article->id);
             unset($article->id);
 

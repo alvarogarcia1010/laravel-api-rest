@@ -72,7 +72,7 @@ class UserManager implements UserManagementInterface {
         else
         {
             $sortColumn = 'id';
-            $sortOrder = 'asc';
+            $sortOrder = 'desc';
         }
 
         if($pager)
@@ -84,6 +84,7 @@ class UserManager implements UserManagementInterface {
 
         $this->User->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($user) use (&$rows)
         {
+            $user->birth_date_with_format = !empty($user->birth_date)? $this->Carbon->createFromFormat('Y-m-d', $user->birth_date, config('app.timezone'))->format('d/m/Y') : null;
             $id = strval($user->id);
             unset($user->id);
 
@@ -141,7 +142,7 @@ class UserManager implements UserManagementInterface {
             'email' => $request->email,
             'username' => $request->username,
             'password' => bcrypt($request->password),
-            'birth_date' => !empty($request->birth_date)? $this->Carbon->createFromFormat('d/m/Y', $request->birth_date)->format('Y-m-d') : null,
+            'birth_date' => $request->birth_date,
             'phone_number' => $request->phone_number
         ];
 

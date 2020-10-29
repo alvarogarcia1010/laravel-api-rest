@@ -97,7 +97,7 @@ class AuthenticationManager implements AuthenticationManagementInterface {
             'email' => $request->email,
             'username' => $request->username,
             'password' => bcrypt($request->password),
-            'birth_date' => !empty($request->birth_date)? $this->Carbon->createFromFormat('d/m/Y', $request->birth_date)->format('Y-m-d') : null,
+            'birth_date' => $request->birth_date,
             'phone_number' => $request->phone_number
         ];
 

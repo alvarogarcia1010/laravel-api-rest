@@ -18,4 +18,7 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'success' => '¡Se inició sesión exitosamente!',
     'logoutSuccess' => '¡Se cerró sesión exitosamente!',
+    'Unauthorized' => 'Acceso no autorizado',
+    'UnauthorizedDetail' => 'Para acceder a este recurso, por favor inicie sesión.',
+
 ];
