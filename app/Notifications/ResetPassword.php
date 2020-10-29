@@ -44,7 +44,7 @@ class ResetPassword extends ResetPasswordNotification
         return (new MailMessage)
             ->subject( __('emails.subject', ['app' => config('app.name')]))
             ->line(__('emails.line1'))
-            ->action(__('emails.action'), config('app.client_url') . '/password/reset/' . $this->token . '?email=' . $notifiable->email)
+            ->action(__('emails.action'), config('app.client_url') . '//cambiar-clave/' . $this->token . '?email=' . $notifiable->email)
             ->line(__('emails.line2'))
             ->line(__('emails.line3'));
     }
