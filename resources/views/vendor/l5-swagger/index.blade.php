@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <title>{{config('l5-swagger.documentations.'.$documentation.'.api.title')}}</title>
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Source+Code+Pro:300,600|Titillium+Web:400,600,700" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="{{ l5_swagger_asset($documentation, 'swagger-ui.css') }}" >
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.36.0/swagger-ui.css">
   <link rel="icon" type="image/png" href="{{ l5_swagger_asset($documentation, 'favicon-32x32.png') }}" sizes="32x32" />
   <link rel="icon" type="image/png" href="{{ l5_swagger_asset($documentation, 'favicon-16x16.png') }}" sizes="16x16" />
   <style>
@@ -66,9 +66,8 @@
 </svg>
 
 <div id="swagger-ui"></div>
-
-<script src="{{ l5_swagger_asset($documentation, 'swagger-ui-bundle.js') }}"> </script>
-<script src="{{ l5_swagger_asset($documentation, 'swagger-ui-standalone-preset.js') }}"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.36.0/swagger-ui-bundle.js" integrity="sha512-nsOxDu2mkW1RaAERVAb/cXBM8mykI74y3tJ5SjjEfGHVfyiFXWwdUAHuCy2XZxMpZcPrCKOoPmNT8Fk2eF+i5g==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/3.36.0/swagger-ui-standalone-preset.js" integrity="sha512-/puZAOZVY7sKGhiOx76byRJ70RRY+k6aswiFIHNVLlj53WOg+grt1N4HIYw1OwvEi/RN8XV2NM40xS+tY2zR7g==" crossorigin="anonymous"></script>
 <script>
 window.onload = function() {
   // Build a system
