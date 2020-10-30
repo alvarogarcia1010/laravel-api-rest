@@ -299,14 +299,31 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Success",
+                        "description": "Producto actualizado con exito",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "type": "articles",
+                                                "id": "1",
+                                                "attributtes": {
+                                                    "sku": "12546362",
+                                                    "name": "Producto 1",
+                                                    "quantity": 10,
+                                                    "price": 22.5,
+                                                    "remark": "",
+                                                    "url_image": ""
+                                                }
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -489,14 +506,31 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Success",
+                        "description": "Producto creado con exito",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "type": "articles",
+                                                "id": "1",
+                                                "attributtes": {
+                                                    "sku": "12546362",
+                                                    "name": "Producto 1",
+                                                    "quantity": 10,
+                                                    "price": 22.5,
+                                                    "remark": "",
+                                                    "url_image": ""
+                                                }
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -648,14 +682,31 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success",
+                        "description": "Producto encontrado",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "type": "articles",
+                                                "id": "1",
+                                                "attributtes": {
+                                                    "sku": "12546362",
+                                                    "name": "Producto 1",
+                                                    "quantity": 10,
+                                                    "price": 22.5,
+                                                    "remark": "",
+                                                    "url_image": ""
+                                                }
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -803,14 +854,23 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success",
+                        "description": "Registro eliminado con exito",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "type": "user",
+                                                "success": "Registro eliminado con exito"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -965,14 +1025,33 @@
                 },
                 "responses": {
                     "201": {
-                        "description": "Success",
+                        "description": "Usuario creado con exito",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "type": "users",
+                                                "id": "1",
+                                                "token": "",
+                                                "token_type": "",
+                                                "expires_at": "",
+                                                "attributtes": {
+                                                    "name": "Alvaro Garcia",
+                                                    "username": "alvarogarcia1010",
+                                                    "email": "alvarogarcia1010@gmail.com",
+                                                    "phone_number": "7777-7777",
+                                                    "birth_date": "1998-09-10"
+                                                }
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -1071,15 +1150,34 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Success",
+                    "201": {
+                        "description": "Inicio de sesión exitoso",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "type": "users",
+                                                "id": "1",
+                                                "token": "",
+                                                "token_type": "",
+                                                "expires_at": "",
+                                                "attributtes": {
+                                                    "name": "Alvaro Garcia",
+                                                    "username": "alvarogarcia1010",
+                                                    "email": "alvarogarcia1010@gmail.com",
+                                                    "phone_number": "7777-7777",
+                                                    "birth_date": "1998-09-10"
+                                                }
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -1977,15 +2075,31 @@
                     }
                 },
                 "responses": {
-                    "201": {
-                        "description": "Success",
+                    "200": {
+                        "description": "Usuario actualizado con exito",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "type": "users",
+                                                "id": "1",
+                                                "attributtes": {
+                                                    "name": "Alvaro Garcia",
+                                                    "username": "alvarogarcia1010",
+                                                    "email": "alvarogarcia1010@gmail.com",
+                                                    "phone_number": "7777-7777",
+                                                    "birth_date": "1998-09-10"
+                                                }
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -2171,15 +2285,31 @@
                     }
                 },
                 "responses": {
-                    "200": {
-                        "description": "Success",
+                    "201": {
+                        "description": "Usuario creado con exito",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "type": "users",
+                                                "id": "1",
+                                                "attributtes": {
+                                                    "name": "Alvaro Garcia",
+                                                    "username": "alvarogarcia1010",
+                                                    "email": "alvarogarcia1010@gmail.com",
+                                                    "phone_number": "7777-7777",
+                                                    "birth_date": "1998-09-10"
+                                                }
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -2301,14 +2431,30 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success",
+                        "description": "Usuario encontrado",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "type": "users",
+                                                "id": "1",
+                                                "attributtes": {
+                                                    "name": "Alvaro Garcia",
+                                                    "username": "alvarogarcia1010",
+                                                    "email": "alvarogarcia1010@gmail.com",
+                                                    "phone_number": "7777-7777",
+                                                    "birth_date": "1998-09-10"
+                                                }
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
                                         }
                                     },
                                     "type": "object"
@@ -2456,14 +2602,23 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Success",
+                        "description": "Registro eliminado con exito",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        "data": {
+                                            "type": "object",
+                                            "example": {
+                                                "type": "user",
+                                                "success": "Registro eliminado con exito"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
                                         }
                                     },
                                     "type": "object"

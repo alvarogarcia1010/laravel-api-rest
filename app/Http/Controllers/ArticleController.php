@@ -342,11 +342,34 @@ class ArticleController extends Controller {
     *   ),
     *
     *   @OA\Response(
-    *       response=201,
-    *       description="Success",
-    *       @OA\JsonContent(
-    *           @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
-    *       )
+    *      response=201,
+    *      description="Producto creado con exito",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="data",
+    *                type="object",
+    *                example={
+    *                  "type": "articles",
+    *                  "id": "1",
+    *                  "attributtes": {
+    *                      "sku": "12546362",
+    *                      "name": "Producto 1",
+    *                      "quantity": 10,
+    *                      "price": 22.50,
+    *                      "remark": "",
+    *                      "url_image": ""
+    *                    },
+    *                },
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *   @OA\Response(
@@ -524,11 +547,34 @@ class ArticleController extends Controller {
     *   ),
     *
     *   @OA\Response(
-    *       response=200,
-    *       description="Success",
-    *       @OA\JsonContent(
-    *           @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
-    *       )
+    *      response=200,
+    *      description="Producto encontrado",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="data",
+    *                type="object",
+    *                example={
+    *                  "type": "articles",
+    *                  "id": "1",
+    *                  "attributtes": {
+    *                      "sku": "12546362",
+    *                      "name": "Producto 1",
+    *                      "quantity": 10,
+    *                      "price": 22.50,
+    *                      "remark": "",
+    *                      "url_image": ""
+    *                    },
+    *                },
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *   @OA\Response(
@@ -710,11 +756,34 @@ class ArticleController extends Controller {
     *   ),
     *
     *   @OA\Response(
-    *       response=200,
-    *       description="Success",
-    *       @OA\JsonContent(
-    *           @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
-    *       )
+    *      response=200,
+    *      description="Producto actualizado con exito",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="data",
+    *                type="object",
+    *                example={
+    *                  "type": "articles",
+    *                  "id": "1",
+    *                  "attributtes": {
+    *                      "sku": "12546362",
+    *                      "name": "Producto 1",
+    *                      "quantity": 10,
+    *                      "price": 22.50,
+    *                      "remark": "",
+    *                      "url_image": ""
+    *                    },
+    *                },
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *   @OA\Response(
@@ -894,11 +963,26 @@ class ArticleController extends Controller {
     *   ),
     *
     *   @OA\Response(
-    *       response=200,
-    *       description="Success",
-    *       @OA\JsonContent(
-    *           @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
-    *       )
+    *      response=200,
+    *      description="Registro eliminado con exito",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="data",
+    *                type="object",
+    *                example={
+    *                  "type": "user",
+    *                  "success": "Registro eliminado con exito",
+    *                },
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *   @OA\Response(

@@ -329,11 +329,33 @@ class UserController extends Controller
     *   ),
     *
     *   @OA\Response(
-    *       response=200,
-    *       description="Success",
-    *       @OA\JsonContent(
-    *           @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
-    *       )
+    *      response=201,
+    *      description="Usuario creado con exito",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="data",
+    *                type="object",
+    *                example={
+    *                  "type": "users",
+    *                  "id": "1",
+    *                  "attributtes": {
+    *                      "name": "Alvaro Garcia",
+    *                      "username": "alvarogarcia1010",
+    *                      "email": "alvarogarcia1010@gmail.com",
+    *                      "phone_number": "7777-7777",
+    *                      "birth_date": "1998-09-10"
+    *                    },
+    *                },
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *   @OA\Response(
@@ -476,11 +498,33 @@ class UserController extends Controller
     *   ),
     *
     *   @OA\Response(
-    *       response=200,
-    *       description="Success",
-    *       @OA\JsonContent(
-    *           @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
-    *       )
+    *      response=200,
+    *      description="Usuario encontrado",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="data",
+    *                type="object",
+    *                example={
+    *                  "type": "users",
+    *                  "id": "1",
+    *                  "attributtes": {
+    *                      "name": "Alvaro Garcia",
+    *                      "username": "alvarogarcia1010",
+    *                      "email": "alvarogarcia1010@gmail.com",
+    *                      "phone_number": "7777-7777",
+    *                      "birth_date": "1998-09-10"
+    *                    },
+    *                },
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *   @OA\Response(
@@ -654,11 +698,33 @@ class UserController extends Controller
     *   ),
     *
     *   @OA\Response(
-    *       response=201,
-    *       description="Success",
-    *       @OA\JsonContent(
-    *           @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
-    *       )
+    *      response=200,
+    *      description="Usuario actualizado con exito",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="data",
+    *                type="object",
+    *                example={
+    *                  "type": "users",
+    *                  "id": "1",
+    *                  "attributtes": {
+    *                      "name": "Alvaro Garcia",
+    *                      "username": "alvarogarcia1010",
+    *                      "email": "alvarogarcia1010@gmail.com",
+    *                      "phone_number": "7777-7777",
+    *                      "birth_date": "1998-09-10"
+    *                    },
+    *                },
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *   @OA\Response(
@@ -836,11 +902,26 @@ class UserController extends Controller
     *   ),
     *
     *   @OA\Response(
-    *       response=200,
-    *       description="Success",
-    *       @OA\JsonContent(
-    *           @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
-    *       )
+    *      response=200,
+    *      description="Registro eliminado con exito",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="data",
+    *                type="object",
+    *                example={
+    *                  "type": "user",
+    *                  "success": "Registro eliminado con exito",
+    *                },
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *   @OA\Response(
