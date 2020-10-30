@@ -74,7 +74,7 @@ window.onload = function() {
   const ui = SwaggerUIBundle({
     dom_id: '#swagger-ui',
 
-    url: "{!! $urlToDocs !!}",
+    url: "{{config('app.documentation_url')}}",
     operationsSorter: {!! isset($operationsSorter) ? '"' . $operationsSorter . '"' : 'null' !!},
     configUrl: {!! isset($configUrl) ? '"' . $configUrl . '"' : 'null' !!},
     validatorUrl: {!! isset($validatorUrl) ? '"' . $validatorUrl . '"' : 'null' !!},

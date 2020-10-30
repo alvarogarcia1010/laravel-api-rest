@@ -54,6 +54,9 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
+
+    'documentation_url' => env('DOCUMENTATION_URL', 'http://localhost/docs/api-docs.json'),
+
     /*
     |--------------------------------------------------------------------------
     | Client Application URL
