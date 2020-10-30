@@ -6,13 +6,14 @@ Versión: 1.0
 Esta api ha sido desarrollada en PHP con su framework de Laravel, cuenta con un modulo de autenticación, método para recuperar contraseñas y rutas protegidas las cuales realizan las operaciones básicas de un CRUD tanto para productos como para usuarios como lo son: crear, leer, actualizar y eliminar un registro de la base de datos.
 
 ## Indice
-  - [Indice](#indice)
   - [Requisitos](#requisitos)
   - [Paquetes utilizados](#paquetes-utilizados)
   - [Instalación](#instalación)
     - [Primeros pasos](#primeros-pasos)
     - [Migraciones](#migraciones)
     - [Generando configuración](#generando-configuración)
+  - [Uso](#uso)
+  - [Arquitectura utilizada](#arquitectura-utilizada)
   - [Anexos](#anexos)
 
 ## Requisitos
@@ -73,6 +74,36 @@ Para finalizar los pasos de instalación en su entorno local debebera ejecutar l
 > ``php artisan passport:install``
 > 
 > ``php artisan l5-swagger:generate``
+
+## Uso
+
+Acontinuación se presenta la [documentación](https://laravel-api-rest-nmtpm.ondigitalocean.app/api/documentation) con los puntos de acceso de la api.
+
+Cabe recalcar que para realizar las peticiones son necesarios los siguientes Headers:
+
+<table>
+  <tr>
+    <td>Llave</td>
+    <td>Valor</td>
+    <td>Requerido</td>
+  </tr>
+  <tr>
+    <td>Content-Type</td>
+    <td>application/json</td>
+    <td>:heavy_check_mark:</td>
+  </tr>
+  <tr>
+    <td>X-Requested-With</td>
+    <td>XMLHttpRequest</td>
+    <td>:heavy_check_mark:</td>
+  </tr>
+  <tr>
+    <td>Authorization</td>
+    <td>Token</td>
+    <td>Con peticiones a las que se necesite autorización</td>
+  </tr>
+</table>
+
 
 ## Arquitectura utilizada
 
