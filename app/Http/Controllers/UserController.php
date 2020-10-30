@@ -135,11 +135,70 @@ class UserController extends Controller
     *   ),
     *
     *   @OA\Response(
-    *       response=200,
-    *       description="Success",
-    *       @OA\JsonContent(
-    *           @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
-    *       )
+    *      response=200,
+    *      description="Lista de usuarios con paginación",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="meta",
+    *                type="object",
+    *                example={{
+    *                  "page": 1,
+    *                  "totalPages": 5,
+    *                  "records": 50,
+    *                }},
+    *             ),
+    *             @OA\Property(
+    *                property="data",
+    *                type="array",
+    *                example={{
+    *                  "type": "users",
+    *                  "id": "1",
+    *                  "attributtes": {
+    *                      "name": "Alvaro Garcia",
+    *                      "username": "alvarogarcia1010",
+    *                      "email": "alvarogarcia1010@gmail.com",
+    *                      "phone_number": "7777-7777",
+    *                      "birth_date": "1998-09-10"
+    *                    },
+    *                }},
+    *                @OA\Items(
+    *                      @OA\Property(
+    *                         property="type",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="id",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="attributes",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                ),
+    *             ),
+    *             @OA\Property(
+    *                property="links",
+    *                type="object",
+    *                example={{
+    *                   "first": "http://laravel-api-rest-nmtpm.ondigitalocean.app/api/users?page[number]=1&page[size]=5",
+    *                   "last": "http://laravel-api-rest-nmtpm.ondigitalocean.app/api/users?page[number]=6&page[size]=5",
+    *                   "next": "http://laravel-api-rest-nmtpm.ondigitalocean.app/api/users?page[number]=$2&page[size]=5",
+    *                   "prev": "http://laravel-api-rest-nmtpm.ondigitalocean.app/api/users?page[number]=1&page[size]=5",
+    *                   "self": "http://laravel-api-rest-nmtpm.ondigitalocean.app/api/users?page[number]=1&page[size]=5",
+    *                }},
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *   @OA\Response(
@@ -782,48 +841,6 @@ class UserController extends Controller
     *       @OA\JsonContent(
     *           @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
     *       )
-    *   ),
-    *   @OA\Response(
-    *      response=200,
-    *      description="Lista de usuarios con paginación",
-    *        @OA\JsonContent(
-    *             type="object",
-    *             @OA\Property(
-    *                property="meta",
-    *                property="object",
-    *                type="array",
-    *                example={{
-    *                  "page": 1,
-    *                  "totalPages": 5,
-    *                  "records": 50,
-    *                }},
-    *             ),
-    *             @OA\Property(
-    *                property="data",
-    *                type="array",
-    *                example={{
-    *                  "status": "404",
-    *                  "title": "Oops! Parece que hubo un error.",
-    *                  "details": "Usuario no encontrado",
-    *                }},
-    *             ),
-    *             @OA\Property(
-    *                property="links",
-    *                type="array",
-    *                example={{
-    *                  "status": "404",
-    *                  "title": "Oops! Parece que hubo un error.",
-    *                  "details": "Usuario no encontrado",
-    *                }},
-    *             ),
-    *             @OA\Property(
-    *                property="jsonapi",
-    *                type="object",
-    *                example={
-    *                  "version": "1.0",
-    *                },
-    *             ),
-    *        ),
     *   ),
     *
     *   @OA\Response(

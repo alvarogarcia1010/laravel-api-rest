@@ -136,51 +136,69 @@ class ArticleController extends Controller {
     *   ),
     *
     *   @OA\Response(
-    *       response=200,
-    *       description="Success",
+    *      response=200,
+    *      description="Lista de productos con paginación",
     *        @OA\JsonContent(
     *             type="object",
     *             @OA\Property(
-    *                property="testItems",
+    *                property="meta",
+    *                type="object",
+    *                example={{
+    *                  "page": 1,
+    *                  "totalPages": 5,
+    *                  "records": 50,
+    *                }},
+    *             ),
+    *             @OA\Property(
+    *                property="data",
     *                type="array",
     *                example={{
-    *                  "firstName": "Bob",
-    *                  "lastName": "Fanger",
-    *                  "company": "Triple",
-    *                  "id": "808",
-    *                }, {
-    *                  "firstName": "",
-    *                  "lastName": "",
-    *                  "company": "",
-    *                  "id": ""
+    *                  "type": "articles",
+    *                  "id": "1",
+    *                  "attributtes": {
+    *                      "sku": "12546362",
+    *                      "name": "Producto 1",
+    *                      "quantity": 10,
+    *                      "price": 22.50,
+    *                      "remark": "",
+    *                      "url_image": ""
+    *                    },
     *                }},
     *                @OA\Items(
     *                      @OA\Property(
-    *                         property="firstName",
+    *                         property="type",
     *                         type="string",
     *                         example=""
     *                      ),
     *                      @OA\Property(
-    *                         property="lastName",
+    *                         property="id",
     *                         type="string",
     *                         example=""
     *                      ),
     *                      @OA\Property(
-    *                         property="companyId",
+    *                         property="attributes",
     *                         type="string",
-    *                         example=""
-    *                      ),
-    *                      @OA\Property(
-    *                         property="accountNumber",
-    *                         type="number",
-    *                         example=""
-    *                      ),
-    *                      @OA\Property(
-    *                         property="netPay",
-    *                         type="money",
     *                         example=""
     *                      ),
     *                ),
+    *             ),
+    *             @OA\Property(
+    *                property="links",
+    *                type="object",
+    *                example={{
+    *                   "first": "http://laravel-api-rest-nmtpm.ondigitalocean.app/api/articles?page[number]=1&page[size]=5",
+    *                   "last": "http://laravel-api-rest-nmtpm.ondigitalocean.app/api/articles?page[number]=6&page[size]=5",
+    *                   "next": "http://laravel-api-rest-nmtpm.ondigitalocean.app/api/articles?page[number]=$2&page[size]=5",
+    *                   "prev": "http://laravel-api-rest-nmtpm.ondigitalocean.app/api/articles?page[number]=1&page[size]=5",
+    *                   "self": "http://laravel-api-rest-nmtpm.ondigitalocean.app/api/articles?page[number]=1&page[size]=5",
+    *                }},
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
     *             ),
     *        ),
     *   ),
