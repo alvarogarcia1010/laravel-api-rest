@@ -118,8 +118,24 @@ class ArticleManager implements ArticleManagementInterface {
         ], 200);
     }
 
-    public function getArticle($article)
+    public function getArticle($id)
     {
+        $article = $this->Article->byId($id);
+
+        if(empty($article))
+        {
+            return response()->json([
+                'errors' => [
+                    'status' => '401',
+                    'title' => __('base.failure'),
+                    'detail' => __('base.articleNotFound')
+                ],
+                'jsonapi' => [
+                    'version' => "1.00"
+                ]
+            ], 404);
+        }
+
         $id = strval($article->id);
         unset($article->id);
 

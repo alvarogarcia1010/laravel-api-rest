@@ -19,6 +19,321 @@
         }
     ],
     "paths": {
+        "/api/articles": {
+            "get": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Lista de productos",
+                "description": "Obtengo una lista de productos con paginación",
+                "operationId": "getArticles",
+                "parameters": [
+                    {
+                        "name": "page[size]",
+                        "in": "path",
+                        "description": "Tamaño de la pagina",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page[number]",
+                        "in": "path",
+                        "description": "Número de pagina",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "in": "path",
+                        "description": "Buscador de productos",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "path",
+                        "description": "Ordernar por campo",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Actualización de productos",
+                "description": "Ruta para actualizar un producto",
+                "operationId": "updateArticle",
+                "requestBody": {
+                    "description": "Información a actualizar del producto",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "quantity",
+                                    "price"
+                                ],
+                                "properties": {
+                                    "sku": {
+                                        "type": "string",
+                                        "example": "123456789"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Producto 1"
+                                    },
+                                    "quantity": {
+                                        "type": "integer",
+                                        "example": "10"
+                                    },
+                                    "price": {
+                                        "type": "float",
+                                        "example": "35.50"
+                                    },
+                                    "remark": {
+                                        "type": "string",
+                                        "example": "Esta es una descripción"
+                                    },
+                                    "image_url": {
+                                        "type": "string",
+                                        "example": "URL"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                    },
+                    "422": {
+                        "description": "Campos no validos o faltan campos requeridos"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Creación de productos",
+                "description": "Ruta para crear un nuevo producto",
+                "operationId": "createArticle",
+                "requestBody": {
+                    "description": "Información del nuevo producto",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "quantity",
+                                    "price"
+                                ],
+                                "properties": {
+                                    "sku": {
+                                        "type": "string",
+                                        "example": "123456789"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Producto 1"
+                                    },
+                                    "quantity": {
+                                        "type": "integer",
+                                        "example": "10"
+                                    },
+                                    "price": {
+                                        "type": "float",
+                                        "example": "35.50"
+                                    },
+                                    "remark": {
+                                        "type": "string",
+                                        "example": "Esta es una descripción"
+                                    },
+                                    "image_url": {
+                                        "type": "string",
+                                        "example": "URL"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                    },
+                    "422": {
+                        "description": "Campos no validos o faltan campos requeridos"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/articles/{articleId}": {
+            "get": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Obtener producto por id",
+                "description": "Esta ruta obtiene un producto por el id",
+                "operationId": "getArticle",
+                "parameters": [
+                    {
+                        "name": "articleId",
+                        "in": "path",
+                        "description": "ID del producto a retornar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                    },
+                    "404": {
+                        "description": "Artículo no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Productos"
+                ],
+                "summary": "Eliminar producto",
+                "description": "Esta ruta elimina el producto con el id pasado por parametro",
+                "operationId": "deleteArticle",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID del prodcuto a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    }
+                }
+            }
+        },
         "/api/register": {
             "post": {
                 "tags": [
@@ -354,6 +669,329 @@
                     },
                     "422": {
                         "description": "Faltan campos requeridos, campos con formato invalido, o ya existe en la base de datos"
+                    }
+                }
+            }
+        },
+        "/api/users": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Lista de usuarios",
+                "description": "Obtengo una lista de usuarios con paginación",
+                "operationId": "getUsers",
+                "parameters": [
+                    {
+                        "name": "page[size]",
+                        "in": "path",
+                        "description": "Tamaño de la pagina",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "page[number]",
+                        "in": "path",
+                        "description": "Número de pagina",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "filter",
+                        "in": "path",
+                        "description": "Buscador de productos",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "path",
+                        "description": "Ordernar por campo",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Actualización de usuario",
+                "description": "Ruta para actualizar un nuevo usuario",
+                "operationId": "updateUser",
+                "requestBody": {
+                    "description": "Información a actualizar del usuario",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "username",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Alvaro García"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "example": "alvarogarcia1010"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "PassWord12345"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1998-09-10"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "example": "7777-7777"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                    },
+                    "422": {
+                        "description": "Campos no validos o faltan campos requeridos"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Creación de usuario",
+                "description": "Ruta para crear un nuevo usuario",
+                "operationId": "createUser",
+                "requestBody": {
+                    "description": "Información del nuevo usuario",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "username",
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Alvaro García"
+                                    },
+                                    "username": {
+                                        "type": "string",
+                                        "example": "alvarogarcia1010"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "user1@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "PassWord12345"
+                                    },
+                                    "birth_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1998-09-10"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "example": "7777-7777"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                    },
+                    "422": {
+                        "description": "Campos no validos o faltan campos requeridos"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/users/{userId}": {
+            "get": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Obtener usuario por id",
+                "description": "Esta ruta obtiene un usuario por el id",
+                "operationId": "getUser",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID del usuario a retornar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Usuarios"
+                ],
+                "summary": "Eliminar usuario",
+                "description": "Esta ruta elimina el usuario con el id pasado por parametro",
+                "operationId": "deleteUser",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID del usuario a eliminar",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                    },
+                    "404": {
+                        "description": "Usuario no encontrado"
                     }
                 }
             }

@@ -118,8 +118,24 @@ class UserManager implements UserManagementInterface {
         ], 200);
     }
 
-    public function getUser($user)
+    public function getUser($id)
     {
+        $user = $this->User->byId($id);
+
+        if(empty($user))
+        {
+            return response()->json([
+                'errors' => [
+                    'status' => '401',
+                    'title' => __('base.failure'),
+                    'detail' => __('base.userNotFound')
+                ],
+                'jsonapi' => [
+                    'version' => "1.00"
+                ]
+            ], 404);
+        }
+
         $id = strval($user->id);
         unset($user->id);
 

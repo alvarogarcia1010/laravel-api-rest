@@ -308,7 +308,7 @@ class AuthController extends Controller
     *           @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
     *       )
     *   ),
-
+    *
     *   @OA\Response(
     *      response=400,
     *      description="El correo proporcionado no existe en la base de datos o token invalido",
