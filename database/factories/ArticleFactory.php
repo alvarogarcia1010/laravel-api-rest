@@ -27,7 +27,7 @@ class ArticleFactory extends Factory
             'remark' => $this->faker->sentence(),
             'quantity' => $this->faker->randomNumber(2, true),
             'price' => $this->faker->randomFloat(2, 0, 999),
-            'image_url' => $this->faker->imageUrl(640, 480, 'foot'),
+            'image_url' => $this->faker->imageUrl(640, 480, 'food'),
         ];
     }
 }
