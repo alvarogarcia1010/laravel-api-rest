@@ -1,61 +1,93 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Laravel Api Rest
+URL: [https://laravel-api-rest-nmtpm.ondigitalocean.app/](https://laravel-api-rest-nmtpm.ondigitalocean.app/)
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Versión: 1.0
 
-## About Laravel
+Esta api ha sido desarrollada en PHP con su framework de Laravel, cuenta con un modulo de autenticación, método para recuperar contraseñas y rutas protegidas las cuales realizan las operaciones básicas de un CRUD tanto para productos como para usuarios como lo son: crear, leer, actualizar y eliminar un registro de la base de datos.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Indice
+  - [Indice](#indice)
+  - [Requisitos](#requisitos)
+  - [Paquetes utilizados](#paquetes-utilizados)
+  - [Instalación](#instalación)
+    - [Primeros pasos](#primeros-pasos)
+    - [Migraciones](#migraciones)
+    - [Generando configuración](#generando-configuración)
+  - [Anexos](#anexos)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP 7.3^
+- Laravel 8
+- MySQL 5.7^
 
-## Learning Laravel
+## Paquetes utilizados
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- [L5-Swagger](https://github.com/DarkaOnLine/L5-Swagger)
+Utilizado para la generación de la documentación en formato OpenApi.
+- [Laravel Passport](https://github.com/laravel/passport)
+Utilizado para realizar la autenticación con el estandar OAuth 2.0.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Instalación
 
-## Laravel Sponsors
+### Primeros pasos
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+En primer lugar procedemos a clonar el repositorio en nuestro entorno local con el siguiente comando:
 
-### Premium Partners
+> ``git clone https://github.com/alvarogarcia1010/laravel-api-rest.git``
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+Ahora procedemos a crear nuestro archivo .env
+> ``cp .env.example .env``
 
-## Contributing
+Y colocamos nuestras configuraciones necesarias para poder correr la api en nuestro entorno local.
+- Colocar configuraciones de CLIENT_URL y DOCUMENTATION_URL
+- Colocar configuraciones de base de datos
+- Colocar configuraciones de servidor de correos
+- Colocar configuraciones de l5-swagger
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Ahora ejecutamos los siguientes comandos.
 
-## Code of Conduct
+> ``composer install``
+> 
+> ``php artisan key:generate``
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Migraciones
+Para crear las tablas necesarias para la aplicación procedemos a correr las migraciones, pasamos el parametro --seed poblar la base con Dummy Data.
 
-## Security Vulnerabilities
+IMPORTANTE: La base de datos a la que nos queremos conectar ya debe estar creada.
+> ``php artisan migrate --seed``
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+NOTA: Si se desea conectar a otro servidor de base de datos que no sea mysql o si sucede algun error durante las migraciones deberá eliminar la linea
+<code>
+    DB::statement('SET SESSION sql_require_primary_key=0');
+</code>
+de los siguientes archivos:
+- 2016_06_01_000001_create_oauth_auth_codes_table.php
+- 2016_06_01_000002_create_oauth_access_tokens_table.php
+- 2016_06_01_000003_create_oauth_refresh_tokens_table.php
 
-## License
+### Generando configuración
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Para finalizar los pasos de instalación en su entorno local debebera ejecutar los siguientes comandos:
+
+> ``php artisan passport:install``
+> 
+> ``php artisan l5-swagger:generate``
+
+## Arquitectura utilizada
+
+Para realizar esta api se utilizo una arquitectura MVC personalizada la cual contiene:
+- Modelos
+- Repositorios
+- Servicios
+- Controladores
+
+## Anexos
+
+- [Documentación OpenApi](https://laravel-api-rest-nmtpm.ondigitalocean.app/api/documentation)
+
+- [Documentación en Posman](https://documenter.getpostman.com/view/5842059/TVYKaw9h)
+  
+- [Importar colección Postman](https://www.getpostman.com/collections/f49bcdcb9e0e4bb44a4f)
+
+- [Backup de la base de datos](https://drive.google.com/file/d/18sPXzsJaYkSIpIVl8Sjpg9msUW3aofse/view?usp=sharing)
