@@ -783,6 +783,48 @@ class UserController extends Controller
     *           @OA\Property(property="message", type="string", example="Sorry, wrong email address or password. Please try again")
     *       )
     *   ),
+    *   @OA\Response(
+    *      response=200,
+    *      description="Lista de usuarios con paginación",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="meta",
+    *                property="object",
+    *                type="array",
+    *                example={{
+    *                  "page": 1,
+    *                  "totalPages": 5,
+    *                  "records": 50,
+    *                }},
+    *             ),
+    *             @OA\Property(
+    *                property="data",
+    *                type="array",
+    *                example={{
+    *                  "status": "404",
+    *                  "title": "Oops! Parece que hubo un error.",
+    *                  "details": "Usuario no encontrado",
+    *                }},
+    *             ),
+    *             @OA\Property(
+    *                property="links",
+    *                type="array",
+    *                example={{
+    *                  "status": "404",
+    *                  "title": "Oops! Parece que hubo un error.",
+    *                  "details": "Usuario no encontrado",
+    *                }},
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
+    *   ),
     *
     *   @OA\Response(
     *      response=401,
