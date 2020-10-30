@@ -29,8 +29,38 @@
                 "operationId": "getArticles",
                 "parameters": [
                     {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "description": "X-Requested-With",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "XMLHttpRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content-Type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/vnd.api+json"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token de autorización",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "token_type + token"
+                        }
+                    },
+                    {
                         "name": "page[size]",
-                        "in": "path",
+                        "in": "query",
                         "description": "Tamaño de la pagina",
                         "required": false,
                         "schema": {
@@ -39,7 +69,7 @@
                     },
                     {
                         "name": "page[number]",
-                        "in": "path",
+                        "in": "query",
                         "description": "Número de pagina",
                         "required": false,
                         "schema": {
@@ -48,7 +78,7 @@
                     },
                     {
                         "name": "filter",
-                        "in": "path",
+                        "in": "query",
                         "description": "Buscador de productos",
                         "required": false,
                         "schema": {
@@ -57,11 +87,12 @@
                     },
                     {
                         "name": "sort",
-                        "in": "path",
-                        "description": "Ordernar por campo",
+                        "in": "query",
+                        "description": "Ordernar por campo [-campo => desc, campo => asc]",
                         "required": false,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "-id"
                         }
                     }
                 ],
@@ -72,9 +103,47 @@
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Sorry, wrong email address or password. Please try again"
+                                        "testItems": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "firstName": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "lastName": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "companyId": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "accountNumber": {
+                                                        "type": "number",
+                                                        "example": ""
+                                                    },
+                                                    "netPay": {
+                                                        "type": "money",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "firstName": "Bob",
+                                                    "lastName": "Fanger",
+                                                    "company": "Triple",
+                                                    "id": "808"
+                                                },
+                                                {
+                                                    "firstName": "",
+                                                    "lastName": "",
+                                                    "company": "",
+                                                    "id": ""
+                                                }
+                                            ]
                                         }
                                     },
                                     "type": "object"
@@ -83,7 +152,47 @@
                         }
                     },
                     "401": {
-                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "Acceso no autorizado",
+                                                "details": "Para acceder a este recurso inicie sesión"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -94,6 +203,38 @@
                 "summary": "Actualización de productos",
                 "description": "Ruta para actualizar un producto",
                 "operationId": "updateArticle",
+                "parameters": [
+                    {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "description": "X-Requested-With",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "XMLHttpRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content-Type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/vnd.api+json"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token de autorización",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "token_type + token"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "description": "Información a actualizar del producto",
                     "required": true,
@@ -154,17 +295,96 @@
                         }
                     },
                     "401": {
-                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "Acceso no autorizado",
+                                                "details": "Para acceder a este recurso inicie sesión"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
-                        "description": "Campos no validos o faltan campos requeridos"
+                        "description": "Campos no validos o faltan campos requeridos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "source": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "422",
+                                                    "title": "El campo ... es requerido",
+                                                    "source": {
+                                                        "pointer": "campo"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             },
             "post": {
                 "tags": [
@@ -173,6 +393,38 @@
                 "summary": "Creación de productos",
                 "description": "Ruta para crear un nuevo producto",
                 "operationId": "createArticle",
+                "parameters": [
+                    {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "description": "X-Requested-With",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "XMLHttpRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content-Type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/vnd.api+json"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token de autorización",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "token_type + token"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "description": "Información del nuevo producto",
                     "required": true,
@@ -233,17 +485,96 @@
                         }
                     },
                     "401": {
-                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "Acceso no autorizado",
+                                                "details": "Para acceder a este recurso inicie sesión"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
-                        "description": "Campos no validos o faltan campos requeridos"
+                        "description": "Campos no validos o faltan campos requeridos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "source": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "422",
+                                                    "title": "El campo ... es requerido",
+                                                    "source": {
+                                                        "pointer": "campo"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/api/articles/{articleId}": {
@@ -255,6 +586,36 @@
                 "description": "Esta ruta obtiene un producto por el id",
                 "operationId": "getArticle",
                 "parameters": [
+                    {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "description": "X-Requested-With",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "XMLHttpRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content-Type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/vnd.api+json"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token de autorización",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "token_type + token"
+                        }
+                    },
                     {
                         "name": "articleId",
                         "in": "path",
@@ -283,10 +644,92 @@
                         }
                     },
                     "401": {
-                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "Acceso no autorizado",
+                                                "details": "Para acceder a este recurso inicie sesión"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Artículo no encontrado"
+                        "description": "Producto no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "404",
+                                                    "title": "Oops! Parece que hubo un error.",
+                                                    "details": "Producto no encontrado"
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -298,6 +741,36 @@
                 "description": "Esta ruta elimina el producto con el id pasado por parametro",
                 "operationId": "deleteArticle",
                 "parameters": [
+                    {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "description": "X-Requested-With",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "XMLHttpRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content-Type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/vnd.api+json"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token de autorización",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "token_type + token"
+                        }
+                    },
                     {
                         "name": "userId",
                         "in": "path",
@@ -326,10 +799,92 @@
                         }
                     },
                     "401": {
-                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "Acceso no autorizado",
+                                                "details": "Para acceder a este recurso inicie sesión"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Usuario no encontrado"
+                        "description": "Usuario no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "404",
+                                                    "title": "Oops! Parece que hubo un error.",
+                                                    "details": "Usuario no encontrado"
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -406,7 +961,51 @@
                         }
                     },
                     "422": {
-                        "description": "Faltan campos requeridos, campos con formato invalido, o ya existe en la base de datos"
+                        "description": "Campos no validos o faltan campos requeridos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "source": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "422",
+                                                    "title": "El campo ... es requerido",
+                                                    "source": {
+                                                        "pointer": "campo"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -469,10 +1068,94 @@
                         }
                     },
                     "401": {
-                        "description": "Error de inicio de sesión"
+                        "description": "Error de inicio de sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "Error de inicio de sesión",
+                                                "details": "El correo o la contraseña es incorrecto"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
-                        "description": "Campos no validos o faltan campos requeridos"
+                        "description": "Campos no validos o faltan campos requeridos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "source": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "422",
+                                                    "title": "El campo ... es requerido",
+                                                    "source": {
+                                                        "pointer": "campo"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -490,6 +1173,38 @@
                 "summary": "Obtener usuario loggeado",
                 "description": "Se obtiene el usuario logeado actualmente con el token",
                 "operationId": "getmyuser",
+                "parameters": [
+                    {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "description": "X-Requested-With",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "XMLHttpRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content-Type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/vnd.api+json"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token de autorización",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "token_type + token"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -508,7 +1223,47 @@
                         }
                     },
                     "401": {
-                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "source": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "El campo ... es requerido",
+                                                "source": ""
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -521,6 +1276,38 @@
                 "summary": "Cerrar sesión",
                 "description": "Este método cierra la sesión en el servidor del token enviado por el headers",
                 "operationId": "logout",
+                "parameters": [
+                    {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "description": "X-Requested-With",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "XMLHttpRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content-Type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/vnd.api+json"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token de autorización",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "token_type + token"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -539,7 +1326,47 @@
                         }
                     },
                     "401": {
-                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "Acceso no autorizado",
+                                                "details": "Para acceder a este recurso inicie sesión"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -591,10 +1418,96 @@
                         }
                     },
                     "400": {
-                        "description": "El correo proporcionado no existe en la base de datos o token invalido"
+                        "description": "El correo proporcionado no existe en la base de datos o token invalido",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "400",
+                                                    "title": "Oops! Parece que hubo un error.",
+                                                    "details": "El correo proporcionado no existe en la base de datos o token invalido"
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
-                        "description": "Faltan campos requeridos, campos con formato invalido"
+                        "description": "Campos no validos o faltan campos requeridos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "source": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "422",
+                                                    "title": "El campo ... es requerido",
+                                                    "source": {
+                                                        "pointer": "campo"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 },
                 "security": [
@@ -668,7 +1581,96 @@
                         }
                     },
                     "422": {
-                        "description": "Faltan campos requeridos, campos con formato invalido, o ya existe en la base de datos"
+                        "description": "Campos no validos o faltan campos requeridos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "source": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "422",
+                                                    "title": "El campo ... es requerido",
+                                                    "source": {
+                                                        "pointer": "campo"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Correo electronico no registrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "404",
+                                                    "title": "Oops! Parece que hubo un error.",
+                                                    "details": "Correo electronico no registrado"
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -683,8 +1685,38 @@
                 "operationId": "getUsers",
                 "parameters": [
                     {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "description": "X-Requested-With",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "XMLHttpRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content-Type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/vnd.api+json"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token de autorización",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "token_type + token"
+                        }
+                    },
+                    {
                         "name": "page[size]",
-                        "in": "path",
+                        "in": "query",
                         "description": "Tamaño de la pagina",
                         "required": false,
                         "schema": {
@@ -693,7 +1725,7 @@
                     },
                     {
                         "name": "page[number]",
-                        "in": "path",
+                        "in": "query",
                         "description": "Número de pagina",
                         "required": false,
                         "schema": {
@@ -702,7 +1734,7 @@
                     },
                     {
                         "name": "filter",
-                        "in": "path",
+                        "in": "query",
                         "description": "Buscador de productos",
                         "required": false,
                         "schema": {
@@ -711,11 +1743,12 @@
                     },
                     {
                         "name": "sort",
-                        "in": "path",
-                        "description": "Ordernar por campo",
+                        "in": "query",
+                        "description": "Ordernar por campo [-campo => desc, campo => asc]",
                         "required": false,
                         "schema": {
-                            "type": "string"
+                            "type": "string",
+                            "default": "-id"
                         }
                     }
                 ],
@@ -737,7 +1770,47 @@
                         }
                     },
                     "401": {
-                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "Acceso no autorizado",
+                                                "details": "Para acceder a este recurso inicie sesión"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -748,6 +1821,38 @@
                 "summary": "Actualización de usuario",
                 "description": "Ruta para actualizar un nuevo usuario",
                 "operationId": "updateUser",
+                "parameters": [
+                    {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "description": "X-Requested-With",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "XMLHttpRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content-Type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/vnd.api+json"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token de autorización",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "token_type + token"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "description": "Información a actualizar del usuario",
                     "required": true,
@@ -812,17 +1917,96 @@
                         }
                     },
                     "401": {
-                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "Acceso no autorizado",
+                                                "details": "Para acceder a este recurso inicie sesión"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
-                        "description": "Campos no validos o faltan campos requeridos"
+                        "description": "Campos no validos o faltan campos requeridos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "source": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "422",
+                                                    "title": "El campo ... es requerido",
+                                                    "source": {
+                                                        "pointer": "campo"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             },
             "post": {
                 "tags": [
@@ -831,6 +2015,38 @@
                 "summary": "Creación de usuario",
                 "description": "Ruta para crear un nuevo usuario",
                 "operationId": "createUser",
+                "parameters": [
+                    {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "description": "X-Requested-With",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "XMLHttpRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content-Type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/vnd.api+json"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token de autorización",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "token_type + token"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "description": "Información del nuevo usuario",
                     "required": true,
@@ -895,17 +2111,96 @@
                         }
                     },
                     "401": {
-                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "Acceso no autorizado",
+                                                "details": "Para acceder a este recurso inicie sesión"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "422": {
-                        "description": "Campos no validos o faltan campos requeridos"
+                        "description": "Campos no validos o faltan campos requeridos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "source": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "422",
+                                                    "title": "El campo ... es requerido",
+                                                    "source": {
+                                                        "pointer": "campo"
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
-                },
-                "security": [
-                    {
-                        "bearer": []
-                    }
-                ]
+                }
             }
         },
         "/api/users/{userId}": {
@@ -945,10 +2240,92 @@
                         }
                     },
                     "401": {
-                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "Acceso no autorizado",
+                                                "details": "Para acceder a este recurso inicie sesión"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Usuario no encontrado"
+                        "description": "Usuario no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "404",
+                                                    "title": "Oops! Parece que hubo un error.",
+                                                    "details": "Usuario no encontrado"
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             },
@@ -960,6 +2337,36 @@
                 "description": "Esta ruta elimina el usuario con el id pasado por parametro",
                 "operationId": "deleteUser",
                 "parameters": [
+                    {
+                        "name": "X-Requested-With",
+                        "in": "header",
+                        "description": "X-Requested-With",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "XMLHttpRequest"
+                        }
+                    },
+                    {
+                        "name": "Content-Type",
+                        "in": "header",
+                        "description": "Content-Type",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "application/vnd.api+json"
+                        }
+                    },
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "Token de autorización",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "default": "token_type + token"
+                        }
+                    },
                     {
                         "name": "userId",
                         "in": "path",
@@ -988,15 +2395,111 @@
                         }
                     },
                     "401": {
-                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión"
+                        "description": "Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "object",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": {
+                                                "status": "401",
+                                                "title": "Acceso no autorizado",
+                                                "details": "Para acceder a este recurso inicie sesión"
+                                            }
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "404": {
-                        "description": "Usuario no encontrado"
+                        "description": "Usuario no encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    },
+                                                    "details": {
+                                                        "type": "string",
+                                                        "example": ""
+                                                    }
+                                                },
+                                                "type": "object"
+                                            },
+                                            "example": [
+                                                {
+                                                    "status": "404",
+                                                    "title": "Oops! Parece que hubo un error.",
+                                                    "details": "Usuario no encontrado"
+                                                }
+                                            ]
+                                        },
+                                        "jsonapi": {
+                                            "type": "object",
+                                            "example": {
+                                                "version": "1.0"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
     },
+    "tags": [
+        {
+            "name": "Autenticación",
+            "description": "Todo lo relacionado con la autenticación"
+        },
+        {
+            "name": "Productos",
+            "description": "Operaciones CRUD para manejar los productos"
+        },
+        {
+            "name": "Usuarios",
+            "description": "Operaciones CRUD para manejar los usuarios"
+        }
+    ],
     "security": [
         []
     ]

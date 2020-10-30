@@ -117,7 +117,7 @@ Para realizar esta api se utilizo una arquitectura MVC personalizada la cual con
 
 - [Documentación OpenApi](https://laravel-api-rest-nmtpm.ondigitalocean.app/api/documentation)
 
-- [Documentación en Posman](https://documenter.getpostman.com/view/5842059/TVYKaw9h)
+- [Documentación en Postman](https://documenter.getpostman.com/view/5842059/TVYKaw9h)
   
 - [Importar colección Postman](https://www.getpostman.com/collections/f49bcdcb9e0e4bb44a4f)
 

@@ -81,7 +81,43 @@ class AuthController extends Controller
     *
     *   @OA\Response(
     *      response=422,
-    *      description="Faltan campos requeridos, campos con formato invalido, o ya existe en la base de datos",
+    *      description="Campos no validos o faltan campos requeridos",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="errors",
+    *                type="array",
+    *                example={{
+    *                  "status": "422",
+    *                  "title": "El campo ... es requerido",
+    *                  "source": {"pointer": "campo"},
+    *                }},
+    *                @OA\Items(
+    *                      @OA\Property(
+    *                         property="status",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="title",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="source",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                ),
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *)
@@ -138,12 +174,84 @@ class AuthController extends Controller
     *
     *   @OA\Response(
     *      response=401,
-    *       description="Error de inicio de sesión",
+    *      description="Error de inicio de sesión",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="errors",
+    *                type="object",
+    *                example={
+    *                  "status": "401",
+    *                  "title": "Error de inicio de sesión",
+    *                  "details": "El correo o la contraseña es incorrecto",
+    *                },
+    *                @OA\Items(
+    *                      @OA\Property(
+    *                         property="status",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="title",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="details",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                ),
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
-
+    *
     *   @OA\Response(
     *      response=422,
     *      description="Campos no validos o faltan campos requeridos",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="errors",
+    *                type="array",
+    *                example={{
+    *                  "status": "422",
+    *                  "title": "El campo ... es requerido",
+    *                  "source": {"pointer": "campo"},
+    *                }},
+    *                @OA\Items(
+    *                      @OA\Property(
+    *                         property="status",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="title",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="source",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                ),
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *)
@@ -188,6 +296,40 @@ class AuthController extends Controller
     *       )
     *   ),
     *
+    *   @OA\Parameter(
+    *       description="X-Requested-With",
+    *       in="header",
+    *       name="X-Requested-With",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string",
+    *           default="XMLHttpRequest"
+    *       )
+    *   ),
+    *
+    *   @OA\Parameter(
+    *       description="Content-Type",
+    *       in="header",
+    *       name="Content-Type",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string",
+    *           default="application/vnd.api+json"
+    *       )
+    *   ),
+    *
+    *
+    *   @OA\Parameter(
+    *       description="Token de autorización",
+    *       in="header",
+    *       name="Authorization",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string",
+    *           default="token_type + token"
+    *       )
+    *   ),
+    *
     *   @OA\Response(
     *       response=200,
     *       description="Success",
@@ -199,6 +341,42 @@ class AuthController extends Controller
     *   @OA\Response(
     *      response=401,
     *      description="Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="errors",
+    *                type="object",
+    *                example={
+    *                  "status": "401",
+    *                  "title": "El campo ... es requerido",
+    *                  "source": "",
+    *                },
+    *                @OA\Items(
+    *                      @OA\Property(
+    *                         property="status",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="title",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="source",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                ),
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *
@@ -243,6 +421,39 @@ class AuthController extends Controller
     *           type="string"
     *       )
     *   ),
+    *   @OA\Parameter(
+    *       description="X-Requested-With",
+    *       in="header",
+    *       name="X-Requested-With",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string",
+    *           default="XMLHttpRequest"
+    *       )
+    *   ),
+    *
+    *   @OA\Parameter(
+    *       description="Content-Type",
+    *       in="header",
+    *       name="Content-Type",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string",
+    *           default="application/vnd.api+json"
+    *       )
+    *   ),
+    *
+    *
+    *   @OA\Parameter(
+    *       description="Token de autorización",
+    *       in="header",
+    *       name="Authorization",
+    *       required=true,
+    *       @OA\Schema(
+    *           type="string",
+    *           default="token_type + token"
+    *       )
+    *   ),
     *
     *   @OA\Response(
     *       response=200,
@@ -255,6 +466,42 @@ class AuthController extends Controller
     *   @OA\Response(
     *      response=401,
     *      description="Acceso no autorizado, para acceder a este recurso debe iniciar sesión",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="errors",
+    *                type="object",
+    *                example={
+    *                  "status": "401",
+    *                  "title": "Acceso no autorizado",
+    *                  "details": "Para acceder a este recurso inicie sesión",
+    *                },
+    *                @OA\Items(
+    *                      @OA\Property(
+    *                         property="status",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="title",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="details",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                ),
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *
@@ -312,11 +559,83 @@ class AuthController extends Controller
     *   @OA\Response(
     *      response=400,
     *      description="El correo proporcionado no existe en la base de datos o token invalido",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="errors",
+    *                type="array",
+    *                example={{
+    *                  "status": "400",
+    *                  "title": "Oops! Parece que hubo un error.",
+    *                  "details": "El correo proporcionado no existe en la base de datos o token invalido",
+    *                }},
+    *                @OA\Items(
+    *                      @OA\Property(
+    *                         property="status",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="title",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="details",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                ),
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *   @OA\Response(
     *      response=422,
-    *      description="Faltan campos requeridos, campos con formato invalido",
+    *      description="Campos no validos o faltan campos requeridos",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="errors",
+    *                type="array",
+    *                example={{
+    *                  "status": "422",
+    *                  "title": "El campo ... es requerido",
+    *                  "source": {"pointer": "campo"},
+    *                }},
+    *                @OA\Items(
+    *                      @OA\Property(
+    *                         property="status",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="title",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="source",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                ),
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *)
@@ -374,7 +693,84 @@ class AuthController extends Controller
     *
     *   @OA\Response(
     *      response=422,
-    *      description="Faltan campos requeridos, campos con formato invalido, o ya existe en la base de datos",
+    *      description="Campos no validos o faltan campos requeridos",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="errors",
+    *                type="array",
+    *                example={{
+    *                  "status": "422",
+    *                  "title": "El campo ... es requerido",
+    *                  "source": {"pointer": "campo"},
+    *                }},
+    *                @OA\Items(
+    *                      @OA\Property(
+    *                         property="status",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="title",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="source",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                ),
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
+    *   ),
+    *
+    *   @OA\Response(
+    *      response=404,
+    *      description="Correo electronico no registrado",
+    *        @OA\JsonContent(
+    *             type="object",
+    *             @OA\Property(
+    *                property="errors",
+    *                type="array",
+    *                example={{
+    *                  "status": "404",
+    *                  "title": "Oops! Parece que hubo un error.",
+    *                  "details": "Correo electronico no registrado",
+    *                }},
+    *                @OA\Items(
+    *                      @OA\Property(
+    *                         property="status",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="title",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                      @OA\Property(
+    *                         property="details",
+    *                         type="string",
+    *                         example=""
+    *                      ),
+    *                ),
+    *             ),
+    *             @OA\Property(
+    *                property="jsonapi",
+    *                type="object",
+    *                example={
+    *                  "version": "1.0",
+    *                },
+    *             ),
+    *        ),
     *   ),
     *
     *)

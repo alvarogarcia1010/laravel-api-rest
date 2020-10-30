@@ -32,6 +32,21 @@ class Controller extends BaseController
      *      description="Alvaro's Api"
      * )
      *
+     * @OA\Tag(
+     *     name="Autenticación",
+     *     description="Todo lo relacionado con la autenticación"
+     * )
+     *
+     * @OA\Tag(
+     *     name="Productos",
+     *     description="Operaciones CRUD para manejar los productos"
+     * )
+     *
+     * @OA\Tag(
+     *     name="Usuarios",
+     *     description="Operaciones CRUD para manejar los usuarios"
+     * )
+     *
      */
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }
