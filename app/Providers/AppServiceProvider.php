@@ -35,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->registerUserInterface();
         $this->registerArticleInterface();
+        $this->registerBaptismInterface();
+        $this->registerConfirmationInterface();
+        $this->registerMarriageInterface();
+
         $this->registerAuthenticationManagementInterface();
         $this->registerUserManagementInterface();
         $this->registerArticleManagementInterface();
@@ -66,6 +70,45 @@ class AppServiceProvider extends ServiceProvider
 		});
     }
 
+    /**
+	* Register a baptism interface instance.
+	*
+	* @return void
+	*/
+	protected function registerBaptismInterface()
+	{
+		$this->app->bind('App\Repositories\Baptism\BaptismInterface', function($app)
+		{
+			return new \App\Repositories\Baptism\EloquentBaptism(new \App\Models\Baptism());
+		});
+    }
+
+    /**
+	* Register a confirmation interface instance.
+	*
+	* @return void
+	*/
+	protected function registerConfirmationInterface()
+	{
+		$this->app->bind('App\Repositories\Confirmation\ConfirmationInterface', function($app)
+		{
+			return new \App\Repositories\Confirmation\EloquentConfirmation(new \App\Models\Confirmation());
+		});
+    }
+
+    /**
+	* Register a marriage interface instance.
+	*
+	* @return void
+	*/
+	protected function registerMarriageInterface()
+	{
+		$this->app->bind('App\Repositories\Marriage\MarriageInterface', function($app)
+		{
+			return new \App\Repositories\Marriage\EloquentMarriage(new \App\Models\Marriage());
+		});
+    }
+
 
     /**
 	* Register a user interface instance.
@@ -84,7 +127,7 @@ class AppServiceProvider extends ServiceProvider
     }
 
     /**
-	* Register a article interface instance.
+	* Register a user manager interface instance.
 	*
 	* @return void
 	*/
@@ -100,7 +143,7 @@ class AppServiceProvider extends ServiceProvider
 	}
 
     /**
-	* Register a article interface instance.
+	* Register a article manager interface instance.
 	*
 	* @return void
 	*/

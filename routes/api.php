@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BaptismController;
+use App\Http\Controllers\ConfirmationController;
+use App\Http\Controllers\MarriageController;
 use App\Http\Controllers\Auth\AuthController;
 
 /*
@@ -34,6 +37,12 @@ Route::middleware('auth:api')->group(function() {
     Route::apiResource('articles', ArticleController::class);
 
     Route::apiResource('users', UserController::class);
+
+    Route::apiResource('baptisms', BaptismController::class);
+
+    Route::apiResource('confirmations', ConfirmationController::class);
+
+    Route::apiResource('marriages', MarriageController::class);
 });
 
 
