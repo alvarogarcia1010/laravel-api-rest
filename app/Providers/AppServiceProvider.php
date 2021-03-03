@@ -42,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
         $this->registerAuthenticationManagementInterface();
         $this->registerUserManagementInterface();
         $this->registerArticleManagementInterface();
+        $this->registerBaptismManagementInterface();
+        $this->registerConfirmationManagementInterface();
+        $this->registerMarriageManagementInterface();
     }
 
     /**
@@ -153,6 +156,54 @@ class AppServiceProvider extends ServiceProvider
 		{
 			return new \App\Services\ArticleManager\ArticleManager(
                 $app->make('App\Repositories\Article\ArticleInterface'),
+                new Carbon()
+            );
+		});
+	}
+
+    /**
+	* Register a baptism manager interface instance.
+	*
+	* @return void
+	*/
+	protected function registerBaptismManagementInterface()
+	{
+		$this->app->bind('App\Services\BaptismManager\BaptismManagementInterface', function($app)
+		{
+			return new \App\Services\BaptismManager\BaptismManager(
+                $app->make('App\Repositories\Baptism\BaptismInterface'),
+                new Carbon()
+            );
+		});
+	}
+
+    /**
+	* Register a confirmation manager interface instance.
+	*
+	* @return void
+	*/
+	protected function registerConfirmationManagementInterface()
+	{
+		$this->app->bind('App\Services\ConfirmationManager\ConfirmationManagementInterface', function($app)
+		{
+			return new \App\Services\ConfirmationManager\ConfirmationManager(
+                $app->make('App\Repositories\Confirmation\ConfirmationInterface'),
+                new Carbon()
+            );
+		});
+	}
+
+    /**
+	* Register a marriage manager interface instance.
+	*
+	* @return void
+	*/
+	protected function registerMarriageManagementInterface()
+	{
+		$this->app->bind('App\Services\MarriageManager\MarriageManagementInterface', function($app)
+		{
+			return new \App\Services\MarriageManager\MarriageManager(
+                $app->make('App\Repositories\Marriage\MarriageInterface'),
                 new Carbon()
             );
 		});

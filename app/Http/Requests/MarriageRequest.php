@@ -13,7 +13,7 @@ class MarriageRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,10 @@ class MarriageRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'husband_name' => 'required',
+            'husband_birthplace' => 'required',
+            'wife_name' => 'required',
+            'wife_birthplace' => 'required',
         ];
     }
 }
