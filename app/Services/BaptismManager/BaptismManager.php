@@ -84,6 +84,8 @@ class BaptismManager implements BaptismManagementInterface {
 
         $this->Baptism->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($baptism) use (&$rows)
         {
+            $baptism->birth_date_with_format = !empty($baptism->birth_date)? $this->Carbon->createFromFormat('Y-m-d', $baptism->birth_date, config('app.timezone'))->format('d/m/Y') : null;
+            $baptism->date_with_format = !empty($baptism->date)? $this->Carbon->createFromFormat('Y-m-d', $baptism->date, config('app.timezone'))->format('d/m/Y') : null;
             $id = strval($baptism->id);
             unset($baptism->id);
 
