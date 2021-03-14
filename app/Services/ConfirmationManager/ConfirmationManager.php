@@ -84,6 +84,8 @@ class ConfirmationManager implements ConfirmationManagementInterface {
 
         $this->Confirmation->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($confirmation) use (&$rows)
         {
+            $confirmation->birth_date_with_format = !empty($confirmation->birth_date)? $this->Carbon->createFromFormat('Y-m-d', $confirmation->birth_date, config('app.timezone'))->format('d/m/Y') : null;
+            $confirmation->date_with_format = !empty($confirmation->date)? $this->Carbon->createFromFormat('Y-m-d', $confirmation->date, config('app.timezone'))->format('d/m/Y') : null;
             $id = strval($confirmation->id);
             unset($confirmation->id);
 
