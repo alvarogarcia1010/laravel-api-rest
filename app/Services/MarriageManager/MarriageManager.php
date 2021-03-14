@@ -84,6 +84,7 @@ class MarriageManager implements MarriageManagementInterface {
 
         $this->Marriage->searchTableRowsWithPagination(false, $limit, $offset, $filter, $sortColumn, $sortOrder)->each(function ($marriage) use (&$rows)
         {
+            $marriage->date_with_format = !empty($marriage->date)? $this->Carbon->createFromFormat('Y-m-d', $marriage->date, config('app.timezone'))->format('d/m/Y') : null;
             $id = strval($marriage->id);
             unset($marriage->id);
 
